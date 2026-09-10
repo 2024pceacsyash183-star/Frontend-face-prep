@@ -1,0 +1,516 @@
+
+
+Index · HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yash Jaiswar — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2A4A;
+    --blueprint:#1E3564;
+    --blueprint-deep:#16274A;
+    --grid-line:rgba(242,239,230,0.09);
+    --grid-line-strong:rgba(242,239,230,0.16);
+    --paper:#F2EFE6;
+    --paper-dim:#E5E1D3;
+    --amber:#E0A339;
+    --amber-dim:#B9832C;
+    --serif:'Source Serif 4', Georgia, serif;
+    --mono:'IBM Plex Mono', 'Courier New', monospace;
+  }
+ 
+  *{box-sizing:border-box; margin:0; padding:0;}
+ 
+  html{scroll-behavior:smooth;}
+ 
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+ 
+  a{color:inherit;}
+ 
+  ::selection{background:var(--amber); color:var(--blueprint-deep);}
+ 
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+ 
+  :focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+ 
+  /* ============ LAYOUT ============ */
+  .frame{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    min-height:100vh;
+  }
+ 
+  /* ============ SIDEBAR ============ */
+  .sidebar{
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(155deg, var(--blueprint) 0%, var(--blueprint-deep) 100%);
+    background-size:28px 28px, 28px 28px, cover;
+    color:var(--paper);
+    padding:44px 34px;
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    border-right:1px solid var(--grid-line-strong);
+  }
+ 
+  .sidebar-top .name{
+    font-size:1.9rem;
+    font-weight:600;
+    letter-spacing:0.01em;
+    line-height:1.15;
+  }
+ 
+  .sidebar-top .role{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--amber);
+    margin-top:10px;
+    letter-spacing:0.02em;
+  }
+ 
+  .sidebar-top .role::before{content:"$ "; opacity:0.7;}
+ 
+  .signal{
+    width:100%;
+    height:auto;
+    margin:26px 0 6px;
+  }
+ 
+  .signal path{
+    fill:none;
+    stroke:var(--amber);
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-dasharray:400;
+    stroke-dashoffset:400;
+    animation:draw 1.8s ease forwards 0.3s;
+  }
+ 
+  .signal circle{
+    fill:var(--blueprint-deep);
+    stroke:var(--paper);
+    stroke-width:1.2;
+    opacity:0;
+    animation:pop 0.5s ease forwards;
+  }
+  .signal circle:nth-of-type(1){animation-delay:0.5s;}
+  .signal circle:nth-of-type(2){animation-delay:0.95s;}
+  .signal circle:nth-of-type(3){animation-delay:1.4s;}
+  .signal circle:nth-of-type(4){animation-delay:1.85s;}
+ 
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @keyframes pop{to{opacity:1;}}
+ 
+  nav.toc{
+    margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+ 
+  nav.toc a{
+    font-family:var(--mono);
+    font-size:0.86rem;
+    color:var(--paper-dim);
+    text-decoration:none;
+    padding:9px 8px;
+    border-left:2px solid transparent;
+    display:flex;
+    gap:10px;
+    transition:color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+ 
+  nav.toc a .idx{color:var(--amber); flex-shrink:0;}
+ 
+  nav.toc a:hover, nav.toc a:focus-visible{
+    color:var(--paper);
+    border-left-color:var(--amber);
+    background:rgba(224,163,57,0.08);
+  }
+ 
+  .sidebar-bottom{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--paper-dim);
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+    padding-top:24px;
+    border-top:1px solid var(--grid-line-strong);
+  }
+ 
+  .sidebar-bottom a{
+    text-decoration:none;
+    color:var(--paper-dim);
+    transition:color 0.15s ease;
+  }
+  .sidebar-bottom a:hover, .sidebar-bottom a:focus-visible{color:var(--amber);}
+ 
+  /* ============ MAIN ============ */
+  main{
+    padding:56px 64px 100px;
+    max-width:880px;
+  }
+ 
+  section{
+    margin-bottom:64px;
+    scroll-margin-top:36px;
+  }
+ 
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:20px;
+    border-bottom:1px solid var(--blueprint);
+    padding-bottom:10px;
+  }
+ 
+  .section-head .idx{
+    font-family:var(--mono);
+    font-size:0.9rem;
+    color:var(--amber-dim);
+  }
+ 
+  .section-head h2{
+    font-size:1.5rem;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+ 
+  .lede{
+    font-size:1.08rem;
+    max-width:62ch;
+  }
+ 
+  /* Education */
+  .edu-row{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:8px 20px;
+    padding:14px 0;
+    border-bottom:1px dashed var(--paper-dim);
+    align-items:baseline;
+  }
+  .edu-row:last-child{border-bottom:none;}
+  .edu-row .school{font-weight:600;}
+  .edu-row .place{font-family:var(--mono); font-size:0.82rem; color:var(--blueprint); opacity:0.75;}
+  .edu-row .years{font-family:var(--mono); font-size:0.86rem; color:var(--amber-dim); text-align:right;}
+ 
+  /* Skills */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:0;
+    border:1px solid var(--paper-dim);
+  }
+  .skill-block{
+    padding:16px 18px;
+    border-right:1px solid var(--paper-dim);
+    border-bottom:1px solid var(--paper-dim);
+  }
+  .skill-block:nth-child(2n){border-right:none;}
+  .skill-block .label{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    color:var(--amber-dim);
+    margin-bottom:8px;
+  }
+  .skill-block .items{font-size:0.95rem;}
+ 
+  /* Projects */
+  .project{
+    border:1px solid var(--paper-dim);
+    padding:22px 24px;
+    margin-bottom:20px;
+    position:relative;
+  }
+  .project::before{
+    content:"";
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width:3px;
+    background:var(--amber);
+  }
+  .project-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:6px 16px;
+    margin-bottom:6px;
+  }
+  .project-head h3{font-size:1.15rem; font-weight:600;}
+  .project-head .stack{
+    font-family:var(--mono);
+    font-size:0.76rem;
+    color:var(--blueprint);
+    opacity:0.75;
+  }
+  .project ul{
+    margin-top:10px;
+    padding-left:1.1em;
+  }
+  .project li{margin-bottom:5px; font-size:0.97rem;}
+ 
+  /* Experience */
+  .role-block{padding:6px 0 8px;}
+  .role-block .role-head{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:4px 16px;
+    margin-bottom:8px;
+  }
+  .role-block h3{font-size:1.1rem; font-weight:600;}
+  .role-block .org{font-family:var(--mono); font-size:0.82rem; color:var(--amber-dim);}
+  .role-block ul{padding-left:1.1em;}
+  .role-block li{margin-bottom:5px; font-size:0.97rem;}
+ 
+  /* Certifications */
+  .cert{
+    padding:14px 0;
+    border-bottom:1px dashed var(--paper-dim);
+  }
+  .cert:last-child{border-bottom:none;}
+  .cert .cert-title{font-weight:600;}
+  .cert .cert-meta{font-family:var(--mono); font-size:0.78rem; color:var(--amber-dim); margin-top:2px;}
+ 
+  footer{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--blueprint);
+    opacity:0.55;
+    padding-top:20px;
+    border-top:1px solid var(--paper-dim);
+  }
+ 
+  /* ============ MOBILE NAV ============ */
+  .mobile-topbar{display:none;}
+ 
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 880px){
+    main{padding:40px 26px 80px;}
+  }
+ 
+  @media (max-width: 760px){
+    .frame{grid-template-columns:1fr;}
+    .sidebar{
+      position:relative;
+      height:auto;
+      padding:30px 24px;
+    }
+    nav.toc{
+      flex-direction:row;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:18px;
+    }
+    nav.toc a{border-left:none; border:1px solid var(--grid-line-strong); border-radius:2px; padding:6px 10px;}
+    nav.toc a:hover, nav.toc a:focus-visible{border-color:var(--amber);}
+    .signal{max-width:220px;}
+    main{padding:34px 20px 70px;}
+    .skill-block:nth-child(2n){border-right:1px solid var(--paper-dim);}
+    .skill-block{border-right:none !important;}
+  }
+</style>
+</head>
+<body>
+ 
+<div class="frame">
+ 
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="name">Yash<br>Jaiswar</div>
+      <div class="role">B.Tech CSE, Poornima College of Engineering</div>
+ 
+      <svg class="signal" viewBox="0 0 232 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 48 L48 48 L68 14 L96 14 L114 44 L146 44 L164 20 L198 20 L214 36 L228 36" />
+        <circle cx="4" cy="48" r="3.4"/>
+        <circle cx="68" cy="14" r="3.4"/>
+        <circle cx="146" cy="44" r="3.4"/>
+        <circle cx="228" cy="36" r="3.4"/>
+      </svg>
+ 
+      <nav class="toc" aria-label="Section navigation">
+        <a href="#summary"><span class="idx">[00]</span> Summary</a>
+        <a href="#education"><span class="idx">[01]</span> Education</a>
+        <a href="#skills"><span class="idx">[02]</span> Skills</a>
+        <a href="#projects"><span class="idx">[03]</span> Projects</a>
+        <a href="#experience"><span class="idx">[04]</span> Experience</a>
+        <a href="#certs"><span class="idx">[05]</span> Certifications</a>
+      </nav>
+    </div>
+ 
+    <div class="sidebar-bottom">
+      <a href="tel:+916377988804">+91 63779 88804</a>
+      <a href="mailto:2024pceacsyash183@poornima.org">2024pceacsyash183@poornima.org</a>
+      <a href="https://www.linkedin.com/in/yash-jaiswar-7111b4330" target="_blank" rel="noopener">linkedin.com/in/yash-jaiswar</a>
+      <a href="https://github.com/2024pceacsyash183-star" target="_blank" rel="noopener">github.com/2024pceacsyash183-star</a>
+    </div>
+  </aside>
+ 
+  <!-- ============ MAIN ============ -->
+  <main>
+ 
+    <section id="summary">
+      <div class="section-head"><span class="idx">[00]</span><h2>Summary</h2></div>
+      <p class="lede">
+        I'm a Computer Science undergraduate at Poornima College of Engineering, building on strong
+        foundations in data structures, algorithms, object-oriented programming, DBMS, and Python.
+        Most of my hands-on time goes into two things: turning raw data into dashboards people can
+        actually act on, and writing modular Python applications that hold together as they grow.
+        I'm currently sharpening those skills — plus communication and leadership — through coursework
+        and my role in the Zircon Tech Club.
+      </p>
+    </section>
+ 
+    <section id="education">
+      <div class="section-head"><span class="idx">[01]</span><h2>Education</h2></div>
+ 
+      <div class="edu-row">
+        <div>
+          <div class="school">B.Tech in Computer Science</div>
+          <div class="place">Poornima College of Engineering, Jaipur, Rajasthan</div>
+        </div>
+        <div class="years">2024 – 2028</div>
+      </div>
+ 
+      <div class="edu-row">
+        <div>
+          <div class="school">CBSE Class XII</div>
+          <div class="place">St. Anselm's Sr. Sec. School, Ajmer</div>
+        </div>
+        <div class="years">76.6%</div>
+      </div>
+ 
+      <div class="edu-row">
+        <div>
+          <div class="school">CBSE Class X</div>
+          <div class="place">St. Anselm's Sr. Sec. School, Ajmer</div>
+        </div>
+        <div class="years">86.6%</div>
+      </div>
+    </section>
+ 
+    <section id="skills">
+      <div class="section-head"><span class="idx">[02]</span><h2>Skills</h2></div>
+      <div class="skills-grid">
+        <div class="skill-block">
+          <div class="label">programming</div>
+          <div class="items">Python</div>
+        </div>
+        <div class="skill-block">
+          <div class="label">core computer science</div>
+          <div class="items">Data Structures, Algorithms, OOPs, DBMS, Object-Oriented Design, Problem Solving</div>
+        </div>
+        <div class="skill-block">
+          <div class="label">data analytics</div>
+          <div class="items">Power BI, Data Analysis, Data Visualization, KPI Dashboards, Business Intelligence</div>
+        </div>
+        <div class="skill-block">
+          <div class="label">tools</div>
+          <div class="items">Git, GitHub, Version Control, Modular Programming</div>
+        </div>
+        <div class="skill-block">
+          <div class="label">working style</div>
+          <div class="items">Analytical Thinking, Team Collaboration, Communication, Leadership</div>
+        </div>
+      </div>
+    </section>
+ 
+    <section id="projects">
+      <div class="section-head"><span class="idx">[03]</span><h2>Projects</h2></div>
+ 
+      <div class="project">
+        <div class="project-head">
+          <h3>Superstore Sales Analysis</h3>
+          <span class="stack">Power BI · Data Analytics</span>
+        </div>
+        <p>An interactive dashboard breaking down Superstore sales performance across products, categories, regions, customer segments, and time.</p>
+        <ul>
+          <li>Cleaned and restructured raw transactional data for reliable reporting</li>
+          <li>Built KPI visuals for sales, profit, quantity sold, category and regional performance</li>
+          <li>Surfaced the highest-performing products, regions, and customer segments</li>
+          <li>Added interactive filtering to compare performance across multiple dimensions at once</li>
+        </ul>
+      </div>
+ 
+      <div class="project">
+        <div class="project-head">
+          <h3>Music App</h3>
+          <span class="stack">Python · OOPs · Data Structures · DBMS</span>
+        </div>
+        <p>A Python music application for managing songs, users, and playlists through a modular application structure.</p>
+        <ul>
+          <li>Applied OOP concepts — classes, encapsulation, abstraction — to organize app functionality</li>
+          <li>Built structured handling for adding, searching, and retrieving songs and playlists</li>
+          <li>Used data structures and DBMS concepts to manage music and user data efficiently</li>
+          <li>Designed reusable components with an eye toward clean code and future features</li>
+        </ul>
+      </div>
+    </section>
+ 
+    <section id="experience">
+      <div class="section-head"><span class="idx">[04]</span><h2>Experience &amp; Leadership</h2></div>
+ 
+      <div class="role-block">
+        <div class="role-head">
+          <h3>Vice Captain, Zircon Tech Club</h3>
+          <span class="org">Poornima College of Engineering</span>
+        </div>
+        <ul>
+          <li>Helped plan, coordinate, and run the club's technical activities and student-led initiatives</li>
+          <li>Organized events, workshops, and peer-learning sessions with fellow club members</li>
+          <li>Supported task delegation and team communication to drive participation in tech activities</li>
+        </ul>
+      </div>
+    </section>
+ 
+    <section id="certs">
+      <div class="section-head"><span class="idx">[05]</span><h2>Certifications &amp; Achievements</h2></div>
+ 
+      <div class="cert">
+        <div class="cert-title">NPTEL Soft Skills Certification — 83%</div>
+        <div class="cert-meta">Professional communication, interpersonal skills, teamwork, workplace etiquette, presentation skills</div>
+      </div>
+      <div class="cert">
+        <div class="cert-title">Academic Performance</div>
+        <div class="cert-meta">86.6% in CBSE Class X · 76.6% in CBSE Class XII</div>
+      </div>
+    </section>
+ 
+    <footer>Yash Jaiswar — updated 2026</footer>
+ 
+  </main>
+ 
+</div>
+ 
+</body>
+</html>
+ 
